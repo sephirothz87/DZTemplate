@@ -17,6 +17,7 @@ require './source/class/class_core.php';
 
 require './source/function/function_forum.php';
 
+fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "forum.php start" . "\n" );
 
 $modarray = array('ajax','announcement','attachment','forumdisplay',
 	'group','image','index','medal','misc','modcp','notice','post','redirect',
