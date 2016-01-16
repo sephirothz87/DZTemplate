@@ -7,16 +7,16 @@
  *      $Id: index.php 34524 2014-05-15 04:42:23Z nemohou $
  */
 
-fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "index.php start" . "\n" );
+fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "index.php start" . "\n" );
 
-fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "SERVER['QUERY_STRING'] = ".$_SERVER['QUERY_STRING'] . "\n" );
+fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "SERVER['QUERY_STRING'] = ".$_SERVER['QUERY_STRING'] . "\n" );
 
 if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	$_ENV['curapp'] = 'home';
 	$_GET = array('mod'=>'space', 'uid'=>$_SERVER['QUERY_STRING']);
 } else {
 
-	fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "SERVER['QUERY_STRING'] null" . "\n" );
+	fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "SERVER['QUERY_STRING'] null" . "\n" );
 
 	$url = '';
 	$domain = $_ENV = array();
@@ -24,27 +24,27 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 
 	//MEMO 此时DOMAIN=NULL
 // 	if($domain){
-// 		fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "domain true" . "\n" );
+// 		fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "domain true" . "\n" );
 // 	}else{
-// 		fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "domain false" . "\n" );
+// 		fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "domain false" . "\n" );
 // 	}
-// 	foreach ($domain as $key => $value) { fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s' ,time()+60*60*6). "]". "domain:" . $key . ": " .$value."\n" ); }
+// 	foreach ($domain as $key => $value) { fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s' ,time()+60*60*6). "]". "domain:" . $key . ": " .$value."\n" ); }
 
 	@include_once './data/sysdata/cache_domain.php';
 	$_ENV['domain'] = $domain;
 
-	fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "_ENV['domain'] = ".$_ENV['domain'] . "\n" );
-	foreach ($domain as $key => $value) { fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s' ,time()+60*60*6). "]". "domain:" . $key . ": " .$value."\n" ); }
+	fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "_ENV['domain'] = ".$_ENV['domain'] . "\n" );
+	foreach ($domain as $key => $value) { fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s' ,time()+60*60*6). "]". "domain:" . $key . ": " .$value."\n" ); }
 	
 	if(empty($_ENV['domain'])) {
 		$_ENV['curapp'] = 'forum';
-		fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "curapp = FORUM" . "\n" );
+		fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "curapp = FORUM" . "\n" );
 	} else {
 		$_ENV['defaultapp'] = array('portal.php' => 'portal', 'forum.php' => 'forum', 'group.php' => 'group', 'home.php' => 'home');
 		$_ENV['hostarr'] = explode('.', $_SERVER['HTTP_HOST']);
 		$_ENV['domainroot'] = substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.')+1);
 		if(!empty($_ENV['domain']['app']) && is_array($_ENV['domain']['app']) && in_array($_SERVER['HTTP_HOST'], $_ENV['domain']['app'])) {
-			fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113155" . "\n" );
+			fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113155" . "\n" );
 			$_ENV['curapp'] = array_search($_SERVER['HTTP_HOST'], $_ENV['domain']['app']);
 			if($_ENV['curapp'] == 'mobile') {
 				$_ENV['curapp'] = 'forum';
@@ -56,7 +56,7 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 				$_ENV['curapp'] = '';
 			}
 		} elseif(!empty($_ENV['domain']['root']) && is_array($_ENV['domain']['root']) && in_array($_ENV['domainroot'], $_ENV['domain']['root'])) {
-			fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113211" . "\n" );
+			fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113211" . "\n" );
 
 			$_G['setting']['holddomain'] = $_ENV['domain']['holddomain'] ? $_ENV['domain']['holddomain'] : array('www');
 			$list = $_ENV['domain']['list'];
@@ -120,37 +120,37 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 				}
 			}
 		} else {
-			fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113236" . "\n" );
+			fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113236" . "\n" );
 			$jump = true;
 		}
 		if(empty($url) && empty($_ENV['curapp'])) {
-			fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113351" . "\n" );
+			fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113351" . "\n" );
 			if(!empty($_ENV['domain']['defaultindex']) && !$jump) {
-				fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113436" . "\n" );
+				fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113436" . "\n" );
 				if($_ENV['defaultapp'][$_ENV['domain']['defaultindex']]) {
 					$_ENV['curapp'] = $_ENV['defaultapp'][$_ENV['domain']['defaultindex']];
 				} else {
 					$url = $_ENV['domain']['defaultindex'];
 				}
 			} else {
-				fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113445" . "\n" );
+				fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113445" . "\n" );
 				if($jump) {
-					fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113601" . "\n" );
+					fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113601" . "\n" );
 					$url = empty($_ENV['domain']['app']['default']) ? (!empty($_ENV['domain']['defaultindex']) ? $_ENV['domain']['defaultindex'] : 'forum.php') : 'http://'.$_ENV['domain']['app']['default'];
 					if(empty($_ENV['domain']['app']['default'])){
-						fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113645" . "\n" );
+						fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113645" . "\n" );
 					}else{
-						fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113651" . "\n" );
+						fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113651" . "\n" );
 					}
 					if(!empty($_ENV['domain']['defaultindex'])){
-						fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113928" . "\n" );
+						fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113928" . "\n" );
 					}else{
-						fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113931" . "\n" );
+						fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113931" . "\n" );
 					}
-					fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "url = ".$url . "\n" );
+					fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "url = ".$url . "\n" );
 					
 				} else {
-					fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113604" . "\n" );
+					fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008113604" . "\n" );
 					$_ENV['curapp'] = 'forum';
 				}
 			}
@@ -158,7 +158,7 @@ if(!empty($_SERVER['QUERY_STRING']) && is_numeric($_SERVER['QUERY_STRING'])) {
 	}
 }
 if(!empty($url)) {
-	fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008174403" . "\n" );
+	fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "20151008174403" . "\n" );
 	$delimiter = strrpos($url, '?') ? '&' : '?';
 	if(isset($_GET['fromuid']) && $_GET['fromuid']) {
 		$url .= sprintf('%sfromuid=%d', $delimiter, $_GET['fromuid']);
@@ -166,7 +166,7 @@ if(!empty($url)) {
 		$url .= sprintf('%sfromuser=%s', $delimiter, rawurlencode($_GET['fromuser']));
 	}
 	
-	fwrite(fopen( "F:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "url = ".$url . "\n" );
+	fwrite(fopen( "D:\\tmp\\log.txt" , "a" ), "[" .date('Y-m-d H:i:s',time()+60*60*6). "]". "url = ".$url . "\n" );
 	header("HTTP/1.1 301 Moved Permanently");
 	header("location: $url");
 } else {
